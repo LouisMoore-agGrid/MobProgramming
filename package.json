@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "test": "mocha test/test.js",
-    "server": "tsc && node dist/server.js"
+    "server": "tsc && nodemon dist/server.js"
   },
   "author": "",
   "license": "ISC",
