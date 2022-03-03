@@ -23,9 +23,6 @@ app.post("/addGame", (request: any, response: any)=> {
     let newGame = request.body.newGame;
     games.push(newGame);
     response.send(games);
-    
-
-    
 })
 
 app.listen(port,()=>{
