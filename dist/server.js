@@ -6,17 +6,24 @@ const app = express();
 const port = 8000;
 app.use(cors({}));
 app.use(express.json());
+const users = [];
 const games = [
     'Call of Shuheb!'
 ];
-app.get("/games", (request, response) => {
+app.get("/game", (request, response) => {
     response.send(games);
 });
-app.post("/addGame", (request, response) => {
+app.post("/game", (request, response) => {
     // const newText = request.body;
     let newGame = request.body.newGame;
     games.push(newGame);
     response.send(games);
+});
+app.post('/userWithGame', (request, response) => {
+    let userName = request.body.userName;
+    let game = request.body.gameName;
+    users.push({ userName, games: [game] });
+    response.send(users);
 });
 app.listen(port, () => {
     console.log('server is now listening on port:', port);
