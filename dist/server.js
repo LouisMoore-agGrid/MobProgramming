@@ -6,12 +6,29 @@ const app = express();
 const port = 8000;
 app.use(cors({}));
 app.use(express.json());
+const mysql = require('mysql');
+// DB: sample_data
+// game
+const connection = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: 'password'
+});
 const users = [];
 const games = [
     'Call of Shuheb!'
 ];
 app.get("/game", (request, response) => {
-    response.send(games);
+    console.log('request');
+    connection.query('SELECT * FROM sample_data.game;', (error, results) => {
+        if (error) {
+            console.log(error);
+        }
+        ;
+        console.log(results);
+        response.send(results);
+    });
+    // response.send(games)
 });
 app.post("/game", (request, response) => {
     // const newText = request.body;
