@@ -1,12 +1,12 @@
 // import { request } from "chai";
 
 // import { Request, Response } from "express"
-const express = require("express")
+const express = require("express");
 const cors = require('cors');
 
-const app = express()
-const port = 8000
-app.use(cors({}))
+const app = express();
+const port = 8000;
+app.use(cors({}));
 app.use(express.json());
 
 const mysql = require('mysql');
@@ -15,10 +15,12 @@ const mysql = require('mysql');
 const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: 'password'
+    password: 'password',
+    
 });
 
-
+// get games    
+    
 const users = [];
 const games = [
     'Call of Shuheb!'
@@ -33,8 +35,16 @@ app.get("/game", (request: any, response: any) => {
         console.log(results);
         response.send(results);
     });
-    // response.send(games)
 })
+
+
+
+
+
+
+
+
+
 
 app.post("/game", (request: any, response: any) => {
     // const newText = request.body;
@@ -54,6 +64,6 @@ app.post('/userWithGame', (request: any, response: any) => {
 
 
 
-app.listen(port, () => {
-    console.log('server is now listening on port:', port)
-})
+// app.listen(port, () => {
+//     console.log('server is now listening on port:', port)
+// })

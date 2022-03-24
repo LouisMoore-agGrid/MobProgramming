@@ -28,3 +28,44 @@ CREATE TABLE user_to_game (
     FOREIGN KEY (gameId) REFERENCES game (gameId),
     FOREIGN KEY (userId) REFERENCES user (userId)
     );
+
+_____________
+
+|Games|-join-|GTU (Game to User)|-Join-|Users|
+
+READS
+
+Get all games 
+insert into game (gameName ) values(' The Land Of BamDadia ')
+
+Get all users
+
+Get Users for given game 
+
+Get Games for given user
+
+
+CREATES 
+//integration test
+// mySQL jest 
+
+Create Game 
+
+Create User 
+
+Create game-to-user (GTU) Connection (maybe update?)
+
+
+UPDATES
+
+...What is an update? 
+
+
+DELETES
+
+Delete game
+
+Delete user 
+
+Delete GTU connection
+
