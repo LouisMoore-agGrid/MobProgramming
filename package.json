@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "test": "mocha test/test.js",
-    "testDB": "mocha test/serverTests.js",
+    "testDB": "mocha test/serverTests.ts",
     "server": "tsc && nodemon dist/server.js"
   },
   "author": "",

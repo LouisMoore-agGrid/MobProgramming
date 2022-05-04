@@ -9,6 +9,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 
+
 const app = express();
 app.use(express.json());
 
@@ -17,12 +18,12 @@ const mysql = require('mysql');
 
 
 const connection = mysql.createConnection({
-    host: process.env.HOST,
-    user: 'root',
-    password: 'password',
-    database : 'sample_data'    
+  host: process.env.HOST,
+  user: 'root',
+  password: 'password',
+  database : 'sample_data'    
 });
- 
+
 const expect = chai.expect
 const should = chai.should
 const equal = chai.equal
@@ -32,15 +33,17 @@ const a = chai.a
 const to = chai.to
 const status = chai.status
 const testGame = 'Settlers of Catan 6: electric boogaloo';
+connection.connect()
+
+const GameDAO = require('../GameDAO.ts');
+const DAO = new GameDAO(connection);
 
 describe("Connecting to DB test", ()=>{
-  before(function() {
-    connection.connect()
-});
-
-after(function() {
-  connection.end();
-})
+  
+  
+  after(function() {
+    connection.end();
+  })
   it("Connects to the database", () => {
     connection.query('SELECT 1 + 1 AS solution', (err, rows, fields) => {
       if (err) throw err
@@ -57,9 +60,11 @@ after(function() {
    
 
     // connection.connect()
-    connection.query(`insert into game (gameName) values('${testGame}')`, (err, rows, fields) => {
-      if (err) throw err
-    })
+    // connection.query(`insert into game (gameName) values('${testGame}')`, (err, rows, fields) => {
+    //   if (err) throw err
+    // })
+
+    DAO.addGame(testGame)
 
     // GET BELOW TO WORK 
     connection.query(`SELECT * FROM sample_data.game`, (err, rows, fields) => {

@@ -17,7 +17,7 @@ const status = chai.status
 
 
 
-describe("ServerTest", ()=>{
+describe.skip("ServerTest", ()=>{
     it("connects to the server", ()=>{
         var rootPage = chai.request('http://localhost:8000')
         .get('/').end((error,response)=>{
