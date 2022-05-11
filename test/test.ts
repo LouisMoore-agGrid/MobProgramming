@@ -1,31 +1,29 @@
-var chai = require('chai')
-  , chaiHttp = require('chai-http');
+var chai1 = require('chai')
+  , chaiHttp1 = require('chai-http');
 
-chai.use(chaiHttp);
+chai1.use(chaiHttp1);
 
 
-const expect = chai.expect
-const should = chai.should
-const equal = chai.equal
-const have = chai.have
-const be = chai.be
-const a = chai.a
-const to = chai.to
-const status = chai.status
-// const done = mocha.done
+const expect = chai1.expect
+const should = chai1.should
+const equal = chai1.equal
+const have = chai1.have
+const be = chai1.be
+const a = chai1.a
+const to = chai1.to
 
 
 
 
 describe.skip("ServerTest", ()=>{
     it("connects to the server", ()=>{
-        var rootPage = chai.request('http://localhost:8000')
+        var rootPage = chai1.request('http://localhost:8000')
         .get('/').end((error,response)=>{
             expect(response).to.have.status(200)
         })
     })
     it("it gets hello world", ()=>{
-        var rootPage = chai.request('http://localhost:8000')
+        var rootPage = chai1.request('http://localhost:8000')
         .get('/').end((error,response)=>{
             expect(response.text).to.equal("hello world")
         })
