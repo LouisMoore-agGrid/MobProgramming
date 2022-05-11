@@ -1,22 +1,23 @@
 import { expect, use } from "chai";
 import chaiHttp from "chai-http";
+import { config } from "dotenv";
+import express from "express";
+import { createConnection } from "mysql";
 import GameDAO from "../GameDAO";
 use(chaiHttp);
-const express = require("express");
 
-const dotenv = require('dotenv');
-dotenv.config();
+
+
+config();
 
 
 
 const app = express();
 app.use(express.json());
 
-const mysql = require('mysql');
 
 
-
-const connection = mysql.createConnection({
+const connection = createConnection({
   host: process.env.HOST,
   user: 'root',
   password: 'password',
@@ -45,28 +46,23 @@ describe("Connecting to DB test", () => {
 
 
   // describe("Games Table Test", ()=>{
-  it("adds a game to games table", () => {
-
-
-
-    // connection.connect()
-    // connection.query(`insert into game (gameName) values('${testGame}')`, (err, rows, fields) => {
-    //   if (err) throw err
-    // })
-
+  it("adds a game to games table", (done) => {
     DAO.addGame(testGame)
+    console.log('something')
+
+    DAO.getGames().then(done);
 
     // GET BELOW TO WORK 
-    connection.query(`SELECT * FROM sample_data.game`, (err, rows, fields) => {
-      if (err) throw err
-      const gameNames = rows.map(row => row.gameName)
-      console.log(Array.isArray(rows))
-      expect(gameNames.includes(testGame)).to.be.true;
-    })
+    // connection.query(`SELECT * FROM sample_data.game`, (err, rows, fields) => {
+    //   if (err) throw err
+    //   const gameNames = rows.map(row => row.gameName)
+    //   console.log(Array.isArray(rows))
+    //   expect(gameNames.includes(testGame)).to.be.true;
+    // })
 
   })
 
-  it('deletes a game from the table', () => {
+  it.skip('deletes a game from the table', () => {
     connection.query(`DELETE FROM game WHERE gameName='${testGame}'`, (err, rows, fields) => {
       if (err) throw err
       // const gameNames = rows.map(row=>row.gameName)
