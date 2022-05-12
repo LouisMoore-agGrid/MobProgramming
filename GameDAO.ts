@@ -21,16 +21,17 @@ class GameDAO {
   getGames(): Promise<{}[]> {
 
     // learn how to debug tests in vs code
-    
+
     let resolveOut = null;
     const response = new Promise<{}[]>((resolve) => {
       resolveOut = resolve;
     });
-    
+
     this.connection.query(getAllGamesSQL(), (err, result) => {
       if (err) {
         console.log(err);
       }
+
       resolveOut(result);
     });
 
