@@ -1,29 +1,31 @@
 import { Connection } from "mysql";
-import { addGameSQL, deleteGameSQL, getAllGamesSQL } from "./gameSQL";
-
-
+import { Game } from "../domain/game";
+import { addGameSQL, deleteGameSQL, getAllGamesSQL } from "../sql/gameSql";
 
 class GameDAO {
   constructor(readonly connection: Connection) { }
 
-  addGame(gameName) {
+  addGame(gameName: string): Promise<void> {
+    let resolveOut = null;
+    const response = new Promise<void>((resolve) => {
+      resolveOut = resolve;
+    });
     this.connection.query(
       addGameSQL(gameName),
       (err, result) => {
         if (err) {
           console.log(err);
-        }
-        console.log(result);
+        };
+        resolveOut();
       }
     );
+
+    return response;
   }
 
-  getGames(): Promise<{}[]> {
-
-    // learn how to debug tests in vs code
-
+  getGames(): Promise<Game[]> {
     let resolveOut = null;
-    const response = new Promise<{}[]>((resolve) => {
+    const response = new Promise<Game[]>((resolve) => {
       resolveOut = resolve;
     });
 
@@ -38,17 +40,6 @@ class GameDAO {
     return response;
   }
 
-  deleteGame(gameName) {
-    this.connection.query(
-      deleteGameSQL(gameName),
-      (err, result) => {
-        if (err) {
-          console.log(err);
-        }
-        console.log(result);
-      }
-    );
-  }
 }
 
 export default GameDAO;

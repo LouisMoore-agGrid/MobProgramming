@@ -1,28 +1,21 @@
-// import { request } from "chai";
-
 import cors from "cors";
 import express from "express";
 import { createConnection } from "mysql";
-
-// import { Request, Response } from "express"
+import { GameController } from "./controller/gameController";
+import GameDAO from "./dao/gameDAO";
 
 const app = express();
-const port = 3306;
 app.use(cors);
 app.use(express.json());
 
-// const mysql = require('mysql');
-// DB: sample_data
-// game
 const connection = createConnection({
     host: 'localhost',
     user: 'root',
     password: 'password',
-
 });
 
-
-
+const gameDAO = new GameDAO(connection);
+const gameController = new GameController(gameDAO);
 // get games    
 
 const users = [];
@@ -31,32 +24,16 @@ const games = [
 ];
 
 app.get("/game", (request: any, response: any) => {
-    console.log('request');
-    connection.query('SELECT * FROM sample_data.game;', (error, results) => {
-        if (error) {
-            console.log(error);
-        };
-        console.log(results);
-        response.send(results);
-    });
+    gameController.retrieveGames().then(games => {
+        response.send(games);
+    })
 })
 
-
-
-
-
-
-
-
-
-
 app.post("/game", (request: any, response: any) => {
-    // const newText = request.body;
-
-    let newGame = request.body.newGame;
-    games.push(newGame);
-    response.send(games);
-
+    let gameName = request.body.newGame;
+    gameController.createGame(gameName).then(games => {
+        response.send(games);
+    });
 });
 
 app.post('/userWithGame', (request: any, response: any) => {
@@ -65,9 +42,3 @@ app.post('/userWithGame', (request: any, response: any) => {
     users.push({ userName, games: [game] });
     response.send(users);
 })
-
-
-
-// app.listen(port, () => {
-//     console.log('server is now listening on port:', port)
-// })
