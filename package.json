@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "testDB": "mocha -r ts-node/register test/serverTests.ts",
-    "server": "tsc && nodemon dist/server.ts"
+    "server": "tsc && nodemon dist/server.js"
   },
   "author": "",
   "license": "ISC",
