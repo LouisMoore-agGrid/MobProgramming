@@ -18,6 +18,11 @@ const gameDAO = new GameDAO(connection);
 const gameController = new GameController(gameDAO);
 // get games    
 
+// register game
+// register user
+// associate in third table
+
+
 const users = [];
 const games = [
     'Call of Shuheb!'
@@ -37,6 +42,7 @@ app.post("/game", (request: any, response: any) => {
 });
 
 app.post('/userWithGame', (request: any, response: any) => {
+    //game and user controller
     let userName = request.body.userName;
     let game = request.body.gameName;
     users.push({ userName, games: [game] });
